@@ -1,44 +1,53 @@
-# Lumoxic AI - Developer Documentation
+# Lumoxic Docs
 
-Official developer documentation for the Lumoxic AI photon computing platform.
+API documentation for [Lumoxic AI](https://lumoxicai.me).
 
-## Overview
+## Base URL
 
-This is the documentation site for [Lumoxic AI](https://lumoxicai.me), built with Next.js, React 19, TypeScript, and Tailwind CSS v4.
+```
+https://api.lumoxicai.me/v1
+```
 
-## Pages
+## Authentication
 
-- **Getting Started** - Installation guide, quick start, and environment setup
-- **API Reference** - Complete REST API documentation with request/response examples
-- **SDK Guide** - Python and TypeScript SDK usage with code examples
-- **Concepts** - Photon Computing, Binary Bounce Engine, and LNBE Architecture
-- **Changelog** - Version history with features, fixes, and breaking changes
+```
+Authorization: Bearer lmx_your_api_key
+```
 
-## Tech Stack
+## Endpoints
 
-- [Next.js](https://nextjs.org/) - React framework with static export
-- [React 19](https://react.dev/) - UI library
-- [TypeScript](https://www.typescriptlang.org/) - Type safety
-- [Tailwind CSS v4](https://tailwindcss.com/) - Utility-first CSS
-- [Zustand](https://zustand.docs.pmnd.rs/) - State management
+| Method | Path | Description |
+|--------|------|-------------|
+| POST | `/v1/optimize` | Upload and optimize an ONNX model |
+| GET | `/v1/jobs/{id}` | Check job status |
+| GET | `/v1/jobs/{id}/result` | Full optimization results |
+| GET | `/v1/models/{id}/download` | Download optimized model |
+| POST | `/v1/benchmark` | Benchmark without optimizing |
+| GET | `/v1/health` | Health check |
+| GET | `/v1/usage` | Account usage and quota |
 
-## Development
+## Example Response
 
-Install dependencies and start the dev server:
+```json
+{
+  "status": "completed",
+  "before": { "size_mb": 97.8, "latency_ms": 84 },
+  "after": { "size_mb": 12.1, "latency_ms": 11 },
+  "delta": { "size_reduction": "8.1x", "speedup": "7.6x" }
+}
+```
 
-    npm install
-    npm run dev
+## Rate Limits
 
-Build for production:
+| Plan | Requests/min | Max Model |
+|------|-------------|-----------|
+| Free | 10 | 500MB |
+| Pro | 60 | 5GB |
+| Enterprise | Unlimited | Unlimited |
 
-    npm run build
+## SDKs
 
-## Deployment
+- [Python SDK](https://github.com/franceshosker/lumoxic-sdk)
+- [CLI](https://github.com/franceshosker/lumoxic-cli)
 
-Deployed to GitHub Pages via GitHub Actions. Push to main to trigger a deployment.
-
-Live: https://franceshosker.github.io/lumoxic-docs
-
-## License
-
-Copyright 2026 Lumoxic AI. All rights reserved.
+(c) 2026 Lumoxic AI.
